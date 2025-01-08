@@ -1,0 +1,157 @@
+:root {
+ 
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.973);
+  background-color: #101010;
+
+}
+body{
+  color: rgba(255, 255, 255, 0.973);
+  background-color: #101010;
+}
+.card{
+  background-color:#101010;
+  width: 10rem;
+  margin-top: 20px;
+  
+  
+}
+.main::-webkit-scrollbar{
+  background-color: transparent;
+}
+
+.card:hover{
+  background-color:rgba(0, 0, 0, 0.61);
+  cursor: pointer;
+}
+#pause{
+  display: none;
+}
+svg{
+  cursor: pointer;
+}
+#playlistcont{
+  display: none;
+}
+.PlaylistRow>td{
+  padding: 6px 0px;
+}
+.PlaylistRow{
+  transition: all .2s linear;
+}
+.PlaylistRow:hover{
+  border-radius: 5px;
+  background-color: rgb(34 34 34 / 51%);
+}
+
+.close:hover{
+  background-color:#3a3a3a;
+}
+.progress-bar {
+  -webkit-appearance: none; /* Remove default styling */
+  margin: 10px;
+  appearance: none;
+  width: 80%; /* Full width slider */
+  height: 4px; /* Track height */
+  background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(153, 153, 153, 0.774) 0%); /* Track with gradient */
+  border-radius: 10px; /* Rounded corners for the track */
+  outline: none; /* Remove focus outline */
+  /* overflow: hidden; Hide overflow */
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+/* Thumb styling for WebKit browsers */
+.progress-bar::-webkit-slider-thumb {
+  
+display: none;
+
+}
+.progress-bar:hover::-webkit-slider-thumb{
+  -webkit-appearance: none; /* Remove default thumb styling */
+  appearance: none;
+  display: block;
+  width: 14px; /* Thumb width */
+  height: 14px; /* Thumb height */
+  background: rgb(255, 255, 255); /* Thumb color */
+  border-radius: 50%; /* Circular thumb */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Optional shadow for depth */
+  position: relative;
+  z-index: 2; /* Ensure thumb is above the track */
+} 
+
+
+
+
+/* .progress-bar::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  justify-content: center;
+  color: var(--bs-progress-bar-color);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--bs-progress-bar-bg);
+  transition: var(--bs-progress-bar-transition);
+  background-color: rgb(255, 0, 0);
+  height: 15px;
+  width: 15px;
+  border-radius: 10px;
+
+}  */
+
+#shuffleOn{
+  display: none;
+}
+#loopOn{
+  display: none;
+}
+
+#playlist::-webkit-scrollbar{
+  background-color: transparent;
+}
+#navContainer{
+  display: flex ;
+      flex-wrap: wrap;
+      justify-content: left;
+      float: left;
+      width: 150px;
+      height: 250px;
+      
+      position: relative;
+      top: 180px;
+      padding: 0px 0px;
+}
+
+#navContainer>a>li{
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(179, 179, 179);
+  
+}
+
+#navContainer>a{
+  height: 10px;
+  margin: 0px 0px;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
