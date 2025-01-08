@@ -264,7 +264,7 @@ function playpause() {
 async function next() {
 if (playlistSong.length!==0) {
   if (document.getElementById('shuffleOn').style.display === 'block') {
-    currentIndex = Math.floor(Math.random()*sugesstion.length)
+    currentIndex = Math.floor(Math.random()*playlistSongTrack.length)
     setCurrentsong(playlistSongTrack[currentIndex])
     currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
     currentaudio.play()
