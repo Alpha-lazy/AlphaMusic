@@ -136,7 +136,7 @@ useEffect(()=>{
       // console.log(Math.floor(await response.data.data[0]));
       
       document.getElementById('current-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.currentTime))}`
-      document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.duration))}`
+      document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(await currentaudio.duration))}`
      
       
        
@@ -339,7 +339,7 @@ else{
 async function prev() {
   if (playlistSong.length!==0) {
     if (document.getElementById('shuffleOn').style.display === 'block') {
-      currentIndex = Math.floor(Math.random()*sugesstion.length)
+      currentIndex = Math.floor(Math.random()*playlistSongTrack.length)
       setCurrentsong(playlistSongTrack[currentIndex])
       currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
       currentaudio.play()
