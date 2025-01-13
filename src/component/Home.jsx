@@ -10,6 +10,7 @@ let currentaudio = new Audio();
 function Home() {
 const[value,setValue] = useState('0')
 const[search,setSearch] = useState('top trending')
+const[playlistsearch,setPlaylistsearch] = useState('top playlist')
 const[song,setSong] = useState([])
 const[currentSong,setCurrentsong] = useState([])
 const[sugesstion, setSugesstion] = useState([])
@@ -20,6 +21,7 @@ const[playlistSongTrack,setPlaylistSongTrack] = useState([])
 const[audidownload,setDownload] = useState()
 function handleonchange (e){
    setSearch(`${e.target.value}`)
+   setPlaylistsearch(`${e.target.value}`)
   
    
     axios.get('https://saavn.dev/api/search/songs', {
@@ -36,8 +38,8 @@ function handleonchange (e){
 
   axios.get('https://saavn.dev/api/search/playlists',{
     params:{
-      query:search===" "?"top trending":`${search}`,
-      limit:10
+      query:playlistsearch===" "?"top trending":`${playlistsearch}`,
+      limit:50
     }
   })
   .then((response)=>{
@@ -60,8 +62,8 @@ useEffect(()=>{
 
   axios.get('https://saavn.dev/api/search/playlists',{
     params:{
-    query:search===""?"top trending":`${search}`,
-      limit:10
+    query:playlistsearch===""?"top trending":`${playlistsearch}`,
+      limit:50
     }
   })
   .then((response)=>{
@@ -386,13 +388,13 @@ async function prev() {
     // currentaudio.play()
 }
 else{
- currentIndex = sugesstion.findIndex((item) => item.id ===currentSong.id)-1
- setCurrentsong(await sugesstion[currentIndex])
-  
- currentaudio.src =await sugesstion[currentIndex].downloadUrl[4].url
- //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
+  currentIndex = sugesstion.findIndex((item) => item.id ===currentSong.id)-1
+  setCurrentsong(await sugesstion[currentIndex])
 
- currentaudio.load()
+  currentaudio.src =await sugesstion[currentIndex].downloadUrl[4].url
+  //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
+ 
+  currentaudio.load()
  
 //  currentaudio.play()
 }

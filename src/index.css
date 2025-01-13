@@ -180,7 +180,11 @@ display: none;
    
 }
 
-
+@media only screen and (max-width: 1021px) {
+  .button {
+   display: none;
+  }
+}
 
 
 
