@@ -144,6 +144,45 @@ display: none;
   margin: 0px 0px;
   text-decoration: none;
 }
+.active-row{
+  background-color:red;
+}
+
+.button{
+  /* position: relative; */
+   max-width: 50px;
+  min-width: 50px;
+
+ 
+ 
+}
+.button>button{
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background-color: #1b1b1b;
+  /* display: none; */
+  opacity: 0;
+  transition: all .3s ease-in; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+ 
+}
+
+.button>button>svg{
+  fill: #adadad;
+}
+.mainPlaylist:hover .button>button{
+    opacity: 1;
+   
+}
+
+
+
+
 
 
 

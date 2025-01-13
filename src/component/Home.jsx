@@ -100,9 +100,21 @@ useEffect(()=>{
    
     let download = await  fetch(response.data.data[0].downloadUrl[4].url)
     setDownload(await download.blob()) 
-    
-    currentaudio.src = response.data.data[0].downloadUrl[4].url
-    currentaudio.play()
+ 
+
+      currentaudio.src = response.data.data[0].downloadUrl[4].url
+      // if (currentaudio.src !== response.data.data[0].downloadUrl[4].url ) {
+
+          // currentaudio.pause()
+          // currentaudio.preload = 'auto'
+          currentaudio.load()
+      //     currentaudio.currentTime = 0
+      // }
+      currentaudio.play()
+
+
+   
+ 
     if (playlistSong.length==0) {
       
    
@@ -127,22 +139,22 @@ useEffect(()=>{
   }
 })
   
-     
+
       
     setClick(true)
     setInterval(async() => {
-     
+      
 
       // console.log(Math.floor(await response.data.data[0]));
       
       document.getElementById('current-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.currentTime))}`
-      document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(await currentaudio.duration))}`
+      document.getElementById('duration-time').innerHTML = `${isNaN(currentaudio.duration)?"00:00":convertToMMSS(Math.floor(currentaudio.duration))}`
      
       
-       
+
        let value = currentaudio.currentTime/currentaudio.duration*100;
        
-
+  
      
       document.getElementById('progressBar').value = Math.floor(currentaudio.currentTime/currentaudio.duration*100)
      
@@ -212,6 +224,7 @@ else{
  currentaudio.src = await playlistSongTrack[currentIndex].downloadUrl[4].url
  // currentaudio.play()
 }
+currentaudio.load()
 await currentaudio.play()
 let download = await  fetch(playlistSongTrack[currentIndex].downloadUrl[4].url)
 
@@ -238,7 +251,7 @@ else{
  currentaudio.src = await sugesstion[currentIndex].downloadUrl[4].url
  // currentaudio.play()
 }
-
+currentaudio.load()
 await currentaudio.play()
 let download = await fetch(sugesstion[currentIndex].downloadUrl[4].url)
 setDownload(await download.blob())
@@ -252,7 +265,7 @@ function playpause() {
 
       document.getElementById('play').style.display = 'none'
       document.getElementById('pause').style.display = 'block'
-      currentaudio.play()
+     currentaudio.play()
   }
    else {
       document.getElementById('play').style.display = 'block'
@@ -267,7 +280,8 @@ if (playlistSong.length!==0) {
     currentIndex = Math.floor(Math.random()*playlistSongTrack.length)
     setCurrentsong(playlistSongTrack[currentIndex])
     currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
-    currentaudio.play()
+    currentaudio.load()
+    // currentaudio.play()
 }else{
   setSugesstion(song)
   currentIndex = playlistSongTrack.findIndex((item) => item.id ===currentSong.id)+1
@@ -276,16 +290,18 @@ if (playlistSong.length!==0) {
   currentaudio.src =await playlistSongTrack[currentIndex].downloadUrl[4].url
   //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
  
-  
-  currentaudio.play()
+  currentaudio.load()
+  // currentaudio.play()
 }
+currentaudio.play()
 }
 else{
   if (document.getElementById('shuffleOn').style.display === 'block') {
     currentIndex = Math.floor(Math.random()*sugesstion.length)
     setCurrentsong(sugesstion[currentIndex])
     currentaudio.src = sugesstion[currentIndex].downloadUrl[4].url
-    currentaudio.play()
+    currentaudio.load()
+    // currentaudio.play()
 }
 else{
  currentIndex = sugesstion.findIndex((item) => item.id ===currentSong.id)+1
@@ -294,9 +310,10 @@ else{
  currentaudio.src =await sugesstion[currentIndex].downloadUrl[4].url
  //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
 
- 
- currentaudio.play()
+ currentaudio.load()
+//  currentaudio.play()
 }
+currentaudio.play()
 }
 
 
@@ -342,7 +359,8 @@ async function prev() {
       currentIndex = Math.floor(Math.random()*playlistSongTrack.length)
       setCurrentsong(playlistSongTrack[currentIndex])
       currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
-      currentaudio.play()
+      currentaudio.load()
+      // currentaudio.play()
   }else{
     setSugesstion(song)
     currentIndex = playlistSongTrack.findIndex((item) => item.id ===currentSong.id)-1
@@ -350,10 +368,11 @@ async function prev() {
      
     currentaudio.src =await playlistSongTrack[currentIndex].downloadUrl[4].url
     //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
-   
+    currentaudio.load()
     
-    currentaudio.play()
+    // currentaudio.play()
   }
+  currentaudio.play()
   }
   else{
   if (playlistSong.length!==0) {
@@ -363,7 +382,8 @@ async function prev() {
     currentIndex = Math.floor(Math.random()*sugesstion.length)
     setCurrentsong(sugesstion[currentIndex])
     currentaudio.src = sugesstion[currentIndex].downloadUrl[4].url
-    currentaudio.play()
+    currentaudio.load()
+    // currentaudio.play()
 }
 else{
  currentIndex = sugesstion.findIndex((item) => item.id ===currentSong.id)-1
@@ -372,10 +392,11 @@ else{
  currentaudio.src =await sugesstion[currentIndex].downloadUrl[4].url
  //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
 
+ currentaudio.load()
  
- 
- currentaudio.play()
+//  currentaudio.play()
 }
+currentaudio.play()
 }
   if (currentIndex===0) {
     document.getElementById('prev').style.cursor = ' not-allowed'
@@ -441,14 +462,24 @@ function shuffle() {
 
 function scrollUp() {
   const container = document.getElementById('playlist');
-  container.scrollBy({ left: -400, behavior: 'smooth' });
+  container.scrollBy({ left: -500, behavior: 'smooth' });
 }
 
 function scrollDown() {
   const container = document.getElementById('playlist');
-  container.scrollBy({ left: 400, behavior: 'smooth' });
+  container.scrollBy({ left: 500, behavior: 'smooth' });
 }
 
+
+// useEffect(()=>{
+
+// const container = document.getElementById('playlist');
+// container.addEventListener('wheel', (event) => {
+//   event.preventDefault(); // Prevent default vertical scrolling
+//   container.scrollLeft += event.deltaY; // Scroll horizontally using the vertical scroll delta
+// }, { passive: false });
+  
+// })
 
  async function download(audiolink,fileName) {
   
@@ -468,7 +499,7 @@ function scrollDown() {
  }
 
  async function playPlaylist(id,url) {
-    
+
  await axios.get('https://saavn.dev/api/playlists',{
 
     params:{
@@ -483,19 +514,26 @@ function scrollDown() {
       setPlaylistSongTrack(responce.data.data.songs)
             document.getElementById("front").style.display = "none"
              document.getElementById("playlistcont").style.display = "block"
+             
     })
-     
+    // setSong(playlistSongTrack)
      
  }
- async function PlayPlaylistSong(id) {
+ async function PlayPlaylistSong(id,row) {
+
             document.getElementById('play').style.display = 'none'
       document.getElementById('pause').style.display = 'block'
-  setSong(playlistSongTrack)
-  let url = playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].downloadUrl[4].url
+
+  let url = await playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].downloadUrl[4].url
   
   setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0])
-  currentaudio.src = url
+  currentaudio.src = await url
+  // currentaudio.preload = 'auto'
+  // playsong(await playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id)
+  // currentaudio.load()
   currentaudio.play()
+
+
   setClick(true)
   prevsong = playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id
   let download = await fetch(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].downloadUrl[4].url)
@@ -508,27 +546,51 @@ function scrollDown() {
     // console.log( document.querySelectorAll(`#${playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id}`)[1].style.backgroundColor="red");
     
  
+   let run = await convertToMMSS(Math.floor(currentaudio.duration))
+   console.log(await currentaudio.duration);
    
     
     
     document.getElementById('current-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.currentTime))}`
-    document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.duration))}`
+    document.getElementById('duration-time').innerHTML = `${isNaN(currentaudio.duration)?"00:00":convertToMMSS(Math.floor(currentaudio.duration))}`
+    // document.getElementById('duration-time').innerHTML = `${currentaudio.played?convertToMMSS(Math.floor(currentaudio.duration)):"00:00"}`
+
+   
+    if(isNaN(currentaudio.duration)){
+      let value = 0
+      document.getElementById('progressBar').style.background = `linear-gradient(to right,   rgb(255, 255, 255) ${value}%,  rgba(153, 153, 153, 0.774) ${value}%)`;
+    }
+     else{
+      let value = currentaudio.currentTime/currentaudio.duration*100;
+      document.getElementById('progressBar').value = Math.floor(currentaudio.currentTime/currentaudio.duration*100)
+      document.getElementById('progressBar').style.background = `linear-gradient(to right,   rgb(255, 255, 255) ${value}%,  rgba(153, 153, 153, 0.774) ${value}%)`;
+     }
    
     
-     
-     let value = currentaudio.currentTime/currentaudio.duration*100;
-     
+    if (currentaudio.played) {
+      // console.log(row);
+      // document.getElementById(id).classList.add('active-row')
+      // document.querySelectorAll(`#${prevsong}`)[1].classList.add('active-row')
+      // document.querySelectorAll(`#${id}`)[1].classList.remove('active-row')
+      // console.log(document.querySelectorAll(`#${prevsong}`)[1].classList.add('active-row'));
+      
+      // document.getElementById(`${id}`)
+    }
+    if (currentaudio.paused) {
+      
+      
+      // console.log(document.querySelectorAll(`#${id}`)[1].classList.add('active-row'));
+    }
+      // document.getElementById(`${id}`).classList.add('active-row')
 
-     
-    document.getElementById('progressBar').value = Math.floor(currentaudio.currentTime/currentaudio.duration*100)
+  //  console.log(prevsong);
+  //  console.log(id);
    
-
-    
-    document.getElementById('progressBar').style.background = `linear-gradient(to right,   rgb(255, 255, 255) ${value}%,  rgba(153, 153, 153, 0.774) ${value}%)`;
-
+  // if (currentaudio.src !== await playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].downloadUrl[4].url) {
+  //    currentaudio.play()
+  // }
 }, 1000);
-
-  setCurrentsong(song.filter(song => song.id === filterId))
+setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0])
 
 //   console.log( download.blob());
   
@@ -595,10 +657,17 @@ function scrollDown() {
         
   
           <h3 style={{color:"white"}}>Plalists</h3>
-         
+          {/* <div className='button' style={{position:"absolute",zIndex:"2"}}><button style={{width:"50px",height:"50px",border:"none",borderRadius:"50%"}} onClick={scrollUp}>Left</button></div>
+          <div className='button' style={{position:"absolute",zIndex:"2"}}><button style={{width:"50px",height:"50px",border:"none",borderRadius:"50%"}}   onClick={scrollDown}>right</button></div> */}
+          <div className='mainPlaylist' style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+          <div className='button' id='bt2' style={{zIndex:"2"}}><button onClick={scrollUp}>
+          <svg xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></button ></div>
+          
+          <div  id='playlist'  style={playlist.length===0?{height:"200px"}:{display:"flex",justifyContent:"space-evenly",flexWrap:"wrap",flexDirection:"column",overflowX:"scroll",height:"350px"}}> 
+          {/* <div style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+
             
-          <div  id='playlist' style={playlist.length===0?{height:"200px"}:{display:"flex",justifyContent:"space-evenly",flexWrap:"wrap",flexDirection:"column",overflowX:"scroll",height:"400px"}}>
-         
+            {/* </div> */}
           {playlist.length===0?<h4 style={{color:"white",textAlign:"center"}}>No any playlist found</h4>:playlist.map((data)=>{
               return <div className="card"  onClick={()=>{playPlaylist(data.id,data.url)}} id={data.id} >
                 <img className="card-img-top" src={data.image[2].url} alt="Card image cap" style={{borderRadius:"10px",width:"130px",height:"130px",margin:"auto",marginTop:"10px"}}/>
@@ -610,11 +679,14 @@ function scrollDown() {
             </div>
             
              })}
+        
                 
           </div>
           
-        
-          
+          <div className='button' id='bt1' style={{zIndex:"2",marginLeft:"10px"}} ><button onClick={scrollDown}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </button></div>
+          </div>
           <h3 style={{color:"white", height:"10px"}}>Trending Songs </h3>
           <div className='mt-4' style={{display:"flex",justifyContent:"space-evenly",flexWrap:"wrap"}}>
 
@@ -649,7 +721,7 @@ function scrollDown() {
                   <div className='mt-5' style={{display:"flex",justifyContent:"center"}}>
                   <table style={{borderCollapse:"separate", borderSpacing:"0 5px"}} width="100%">
                       {playlistSongTrack.map((data,index)=>{
-                        return  <tr className='PlaylistRow' onClick={()=>{PlayPlaylistSong(data.id)}} id={data.id}>
+                        return  <tr className='PlaylistRow' onClick={()=>{PlayPlaylistSong(data.id,this)}} id={data.id}>
                                  <td style={{width:"48px",textAlign:"center"}}>{index+1}</td>
                                  <td style={{display:"flex",gap:"10px", alignItems:"center"}}><img width="50px" height="50px" style={{borderRadius:"5px"}} src={data.image[2].url} alt="" />
                                    <div>{data.name}</div>
