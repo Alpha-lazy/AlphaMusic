@@ -547,6 +547,8 @@ function scrollDown() {
       setClick(true)
       currentaudio.src = responce.data.data.songs[0].downloadUrl[4].url
       currentaudio.play()
+      let download = await fetch(responce.data.data.songs[0].downloadUrl[4].url)
+  setDownload(await download.blob())
       document.getElementById("front").style.display = "none"
       document.getElementById("playlistcont").style.display = "block"
              
