@@ -734,7 +734,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
           <div className='button' id='bt2' style={{zIndex:"2"}}><button onClick={scrollUp}>
           <svg xmlns="http://www.w3.org/2000/svg"  width="30px" height="30px" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></button ></div>
           
-          <div  id='playlist'  style={playlist.length===0?{height:"200px"}:{display:"flex",justifyContent:"space-evenly",flexWrap:"wrap",flexDirection:"column",overflowX:"scroll",height:"350px"}}> 
+          <div  id='playlist'  style={playlist.length===0?{height:"200px"}:{display:"flex",justifyContent:"space-evenly",flexWrap:"wrap",flexDirection:"column",overflowX:"scroll",height:"350px",width:"100%"}}> 
           {/* <div style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
 
             
