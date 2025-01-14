@@ -719,7 +719,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
  
   return (
     <>
-    <div className='container mt-4 d-flex justify-content-between'>
+    <div className='container mt-4 d-flex justify-content-between' style={{alignItems:"center",gap:"15px"}}>
       <h5>AlphaMusic</h5>
       <input id='search' className="p-3 mr-sm-2 " onChange={handleonchange} onFocus={() => { document.getElementById('search').style.border = "1px solid white" }} style={{ background: "#242424", color: "white", width: "500px", height: "45px", borderRadius: "50px", border: "none", outline: "none" }} type="search" placeholder="Search song you want..." aria-label="Search" />
     </div>
