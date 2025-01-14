@@ -3,13 +3,14 @@ import '../index.css'
 import axios from 'axios'
 import { map } from 'zod';
 import { set } from 'mongoose';
+
 let prevsong;
 let currentIndex = 0;
 let currentaudio = new Audio();
 
 function Home() {
 const[value,setValue] = useState('0')
-const[search,setSearch] = useState('top trending')
+const[search,setSearch] = useState('top 2024')
 const[playlistsearch,setPlaylistsearch] = useState('top playlist')
 const[song,setSong] = useState([])
 const[currentSong,setCurrentsong] = useState([])
@@ -20,13 +21,18 @@ const[playlistSong,setPlaylistSong] = useState([])
 const[playlistSongTrack,setPlaylistSongTrack] = useState([])
 const[audidownload,setDownload] = useState()
 function handleonchange (e){
-   setSearch(`${e.target.value}`)
-   setPlaylistsearch(`${e.target.value}`)
-  
+
+  setSearch(`${e.target.value}`)
+  setPlaylistsearch(`${e.target.value}`)
+   
+
+   console.log(playlistsearch.length);
+   
+ 
    
     axios.get('https://saavn.dev/api/search/songs', {
       params: {
-        query: search===" "?"payal":search, // Pass parameters to the request
+        query: search.trim().length===0||search.length===1?"top 2024":search, // Pass parameters to the request
         limit:30
       },
     })
@@ -38,7 +44,7 @@ function handleonchange (e){
 
   axios.get('https://saavn.dev/api/search/playlists',{
     params:{
-      query:playlistsearch===" "?"top trending":`${playlistsearch}`,
+      query:playlistsearch.trim().length===0||playlistsearch.length===1?"top playlist":`${playlistsearch}`,
       limit:50
     }
   })
@@ -51,7 +57,7 @@ function handleonchange (e){
 useEffect(()=>{
   axios.get('https://saavn.dev/api/search/songs', {
     params: {
-      query: search==="top trending"?"Top 2024":`${search}`, // Pass parameters to the request
+      query: search.trim().length===0||search.length===1?"Top 2024":`${search}`, // Pass parameters to the request
       limit:30
     },
   })
@@ -62,7 +68,7 @@ useEffect(()=>{
 
   axios.get('https://saavn.dev/api/search/playlists',{
     params:{
-    query:playlistsearch===""?"top trending":`${playlistsearch}`,
+    query:search.trim().length===0||playlistsearch.length===1?"top playlist":`${playlistsearch}`,
       limit:50
     }
   })
@@ -154,8 +160,30 @@ useEffect(()=>{
      
       
 
+   if(currentaudio.played) {
+      document.getElementById('play').style.display = 'block'
+      document.getElementById('pause').style.display = 'none'
+    
+    }
+     else{
+
+      document.getElementById('play').style.display = 'none'
+      document.getElementById('pause').style.display = 'block'
+    
+  }
+
        let value = currentaudio.currentTime/currentaudio.duration*100;
-       
+        if(currentaudio.played) {
+      document.getElementById('play').style.display = 'none'
+      document.getElementById('pause').style.display = 'block'
+    
+    }
+     if (currentaudio.paused){
+
+      document.getElementById('play').style.display = 'block'
+      document.getElementById('pause').style.display = 'none'
+    
+  }
   
      
       document.getElementById('progressBar').value = Math.floor(currentaudio.currentTime/currentaudio.duration*100)
@@ -502,7 +530,7 @@ function scrollDown() {
 
  async function playPlaylist(id,url) {
 
- await axios.get('https://saavn.dev/api/playlists',{
+   await axios.get('https://saavn.dev/api/playlists',{
 
     params:{
         id:id,
@@ -511,16 +539,66 @@ function scrollDown() {
     }
   })
     .then(async(responce)=>{
-
+     
+        
       setPlaylistSong(responce.data.data)
-      setPlaylistSongTrack(responce.data.data.songs)
-            document.getElementById("front").style.display = "none"
-             document.getElementById("playlistcont").style.display = "block"
+      setPlaylistSongTrack(await responce.data.data.songs)
+      setCurrentsong(await responce.data.data.songs[0])
+      setClick(true)
+      currentaudio.src = responce.data.data.songs[0].downloadUrl[4].url
+      currentaudio.play()
+      document.getElementById("front").style.display = "none"
+      document.getElementById("playlistcont").style.display = "block"
              
     })
-    // setSong(playlistSongTrack)
+
+    setInterval(async() => {
      
+
+    // console.log(Math.floor(await response.data.data[0]));
+    // console.log(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id);
+    // console.log( document.querySelectorAll(`#${playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id}`)[1].style.backgroundColor="red");
+    
+ 
+
+   
+    
+    
+    document.getElementById('current-time').innerHTML = `${convertToMMSS(Math.floor(currentaudio.currentTime))}`
+    document.getElementById('duration-time').innerHTML = `${isNaN(currentaudio.duration)?"00:00":convertToMMSS(Math.floor(currentaudio.duration))}`
+    // document.getElementById('duration-time').innerHTML = `${currentaudio.played?convertToMMSS(Math.floor(currentaudio.duration)):"00:00"}`
+
+   
+    if(isNaN(currentaudio.duration)){
+      let value = 0
+      document.getElementById('progressBar').style.background = `linear-gradient(to right,   rgb(255, 255, 255) ${value}%,  rgba(153, 153, 153, 0.774) ${value}%)`;
+    }
+     else{
+      let value = currentaudio.currentTime/currentaudio.duration*100;
+      document.getElementById('progressBar').value = Math.floor(currentaudio.currentTime/currentaudio.duration*100)
+      document.getElementById('progressBar').style.background = `linear-gradient(to right,   rgb(255, 255, 255) ${value}%,  rgba(153, 153, 153, 0.774) ${value}%)`;
+     }
+   
+    
+   if(currentaudio.played) {
+      document.getElementById('play').style.display = 'none'
+      document.getElementById('pause').style.display = 'block'
+    
+    }
+     if (currentaudio.paused){
+
+      document.getElementById('play').style.display = 'block'
+      document.getElementById('pause').style.display = 'none'
+    
+  }
+}, 1000); 
+
+    
  }
+ 
+
+
+
  async function PlayPlaylistSong(id,row) {
 
             document.getElementById('play').style.display = 'none'
@@ -569,28 +647,17 @@ function scrollDown() {
      }
    
     
-    if (currentaudio.played) {
-      // console.log(row);
-      // document.getElementById(id).classList.add('active-row')
-      // document.querySelectorAll(`#${prevsong}`)[1].classList.add('active-row')
-      // document.querySelectorAll(`#${id}`)[1].classList.remove('active-row')
-      // console.log(document.querySelectorAll(`#${prevsong}`)[1].classList.add('active-row'));
-      
-      // document.getElementById(`${id}`)
+   if(currentaudio.played) {
+      document.getElementById('play').style.display = 'none'
+      document.getElementById('pause').style.display = 'block'
+    
     }
-    if (currentaudio.paused) {
-      
-      
-      // console.log(document.querySelectorAll(`#${id}`)[1].classList.add('active-row'));
-    }
-      // document.getElementById(`${id}`).classList.add('active-row')
+     if (currentaudio.paused){
 
-  //  console.log(prevsong);
-  //  console.log(id);
-   
-  // if (currentaudio.src !== await playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].downloadUrl[4].url) {
-  //    currentaudio.play()
-  // }
+      document.getElementById('play').style.display = 'block'
+      document.getElementById('pause').style.display = 'none'
+    
+  }
 }, 1000);
 setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0])
 
@@ -598,6 +665,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
   
  }
  
+
 
 
  async function close() {
@@ -648,6 +716,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
  }
 
 
+ 
   return (
     <>
     <div className='container mt-4 d-flex justify-content-between'>
@@ -724,12 +793,16 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
                   <table style={{borderCollapse:"separate", borderSpacing:"0 5px"}} width="100%">
                       {playlistSongTrack.map((data,index)=>{
                         return  <tr className='PlaylistRow' onClick={()=>{PlayPlaylistSong(data.id,this)}} id={data.id}>
-                                 <td style={{width:"48px",textAlign:"center"}}>{index+1}</td>
-                                 <td style={{display:"flex",gap:"10px", alignItems:"center"}}><img width="50px" height="50px" style={{borderRadius:"5px"}} src={data.image[2].url} alt="" />
-                                   <div>{data.name}</div>
+                                 <td className='srNo' style={{width:"48px",textAlign:"center"}}>{index+1}</td>
+                                 <td style={{display:"flex",gap:"10px", alignItems:"center"}}><img className='tbimg' width="50px" height="50px" style={{borderRadius:"5px"}} src={data.image[2].url} alt="" />
+                                   <div>
+                                    <div className='tbname'>{data.name}</div>
+                                   <div className='responceArtistName' style={{fontSize:"14px",color:"#898686",fontWeight:"500"}}>{data.artists.all[0].name}</div>
+                                   </div>
+                                 
                                  </td>
-                                 <td>{data.artists.all[0].name}</td>
-                                 <td style={{width:"48px",textAlign:"center"}}>{convertToMMSS(data.duration)}</td>
+                                 <td className='tbartist'>{data.artists.all[0].name}</td>
+                                 <td className='tbduration' style={{width:"48px",textAlign:"center"}}>{convertToMMSS(data.duration)}</td>
                             </tr>
                            
                           })}
@@ -742,6 +815,8 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
         <div style={{width:"100%",height:"90px",padding:"5px",backgroundColor:"black",position:"absolute",bottom:"0px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{width:"300px",display:"flex",alignItems:"center",height:"100%",overflow:"hidden"}}>
            {  click?<>
+            {console.log(currentSong.name)
+            }
                       <img style={{objectFit:"contain",width:"80px",height:"80px",borderRadius:"5px"}} src={currentSong.image[2].url} alt="" />
                       <div style={{marginLeft:"15px"}} >
                       <h6 className="card-title" style={{color:"white",textWrap:"nowrap"}}>{currentSong.name}</h6>

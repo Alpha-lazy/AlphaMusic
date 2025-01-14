@@ -179,10 +179,43 @@ display: none;
     opacity: 1;
    
 }
+.responceArtistName{
+  display: none;
+}
+
+/* .srNo{
+  display: flex;
+}
+
+.tbartist{
+  display: flex;
+} */
+
 
 @media only screen and (max-width: 1021px) {
   .button {
    display: none;
+  }
+}
+
+@media only screen and (max-width: 998px) {
+ .srNo,.tbartist{
+    display: none;
+  }
+
+  .responceArtistName{
+    display: block;
+  
+  }
+  .tbduration{
+    display: none;
+  }
+  .tbname{
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 300px;
+    text-overflow: ellipsis;
+
   }
 }
 
