@@ -235,6 +235,9 @@ display: none;
   .playlistname>div>h1{
    font-size: 25px;
   }
+  .player{
+     height: 80px;
+  }
   
 }
 @media only screen and (max-width:484px) {
@@ -248,7 +251,9 @@ display: none;
  
 
   }
-
+  .player{
+    height: 80px;
+ }
   .playlistname>div{
     /* display: block; */
     max-width: 200px;

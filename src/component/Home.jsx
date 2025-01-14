@@ -812,7 +812,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
             
         
        
-        <div style={{width:"100%",height:"90px",padding:"5px",backgroundColor:"black",position:"absolute",bottom:"0px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div className='player' style={{width:"100%",height:"90px",padding:"5px",backgroundColor:"black",position:"absolute",bottom:"0px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{width:"300px",display:"flex",alignItems:"center",height:"100%",overflow:"hidden"}}>
            {click?<>
                    <img style={{objectFit:"contain",width:"80px",height:"80px",borderRadius:"5px"}} src={currentSong.image[2].url} alt="" />
