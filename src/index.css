@@ -213,13 +213,57 @@ display: none;
   .tbname{
     white-space: nowrap;
     overflow: hidden;
-    max-width: 300px;
+    max-width: 230px;
     text-overflow: ellipsis;
 
   }
 }
+.playlistimg{
+  width: 200px;
+  height: 200px;
+}
+@media only screen and (max-width:780px) {
 
+  .playlistimg{
+    width: 150px;
+    height: 150px;
+  }
+  
+}
+@media only screen and (max-width:513px) {
 
+  .playlistname>div>h1{
+   font-size: 25px;
+  }
+  
+}
+@media only screen and (max-width:484px) {
+
+  .playlistname>div>h1{
+   font-size: 22px;
+   display: block;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+ 
+
+  }
+
+  .playlistname>div{
+    /* display: block; */
+    max-width: 200px;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+  
+    
+  }
+  .playlistimg{
+    width: 100px;
+    height: 100px;
+  }
+  
+}
 
 
 

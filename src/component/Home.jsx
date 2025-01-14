@@ -782,9 +782,9 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
                   </div>
                   <div className='mt-5' style={{display:"flex",alignItems:"center",gap:"30px"}}>
                     <div>
-                    <img width="200px" height="200px" style={{borderRadius:"10px"}} src={playlistSong.length===0?"":playlistSong.image[2].url} alt="" />
+                    <img className='playlistimg' width="200px" height="200px" style={{borderRadius:"10px"}} src={playlistSong.length===0?"":playlistSong.image[2].url} alt="" />
                     </div>
-                    <div>
+                    <div className='playlistname'>
                        <div><h1 style={{color:"white"}}>{playlistSong.name}</h1></div>
                        <div style={{fontSize:"20px",fontWeight:"500",color:"#757575"}}>{playlistSong.songCount} Songs</div>
                     </div>
@@ -814,10 +814,8 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
        
         <div style={{width:"100%",height:"90px",padding:"5px",backgroundColor:"black",position:"absolute",bottom:"0px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{width:"300px",display:"flex",alignItems:"center",height:"100%",overflow:"hidden"}}>
-           {  click?<>
-            {console.log(currentSong.name)
-            }
-                      <img style={{objectFit:"contain",width:"80px",height:"80px",borderRadius:"5px"}} src={currentSong.image[2].url} alt="" />
+           {click?<>
+                   <img style={{objectFit:"contain",width:"80px",height:"80px",borderRadius:"5px"}} src={currentSong.image[2].url} alt="" />
                       <div style={{marginLeft:"15px"}} >
                       <h6 className="card-title" style={{color:"white",textWrap:"nowrap"}}>{currentSong.name}</h6>
                       <p className="card-text" style={{color:"#898686",fontWeight:"500",textWrap:"nowrap",fontSize:"16px"}}>{currentSong.artists.all[0].name}</p>
