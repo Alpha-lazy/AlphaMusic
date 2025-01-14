@@ -727,7 +727,7 @@ setCurrentsong(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.i
     <div className='container mt-4 main' id='front' style={{height:"auto",maxHeight:"71vh",overflow:"auto",}}>
         
   
-          <h3 style={{color:"white"}}>Plalists</h3>
+          <h3 style={{color:"white"}}>Playlists</h3>
           {/* <div className='button' style={{position:"absolute",zIndex:"2"}}><button style={{width:"50px",height:"50px",border:"none",borderRadius:"50%"}} onClick={scrollUp}>Left</button></div>
           <div className='button' style={{position:"absolute",zIndex:"2"}}><button style={{width:"50px",height:"50px",border:"none",borderRadius:"50%"}}   onClick={scrollDown}>right</button></div> */}
           <div className='mainPlaylist' style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
