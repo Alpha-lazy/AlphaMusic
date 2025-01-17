@@ -248,57 +248,113 @@ function Home() {
   }
 
   currentaudio.addEventListener('ended', async () => {
+
+
     if (playlistSong.length !== 0) {
-      setSugesstion(song)
+      console.log(playlistSong.length);
       if (document.getElementById('shuffleOn').style.display === 'block') {
         currentIndex = Math.floor(Math.random() * playlistSongTrack.length)
         setCurrentsong(playlistSongTrack[currentIndex])
         currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
-        //  currentaudio.play()
-      }
-      else {
+        currentaudio.load()
+        // currentaudio.play()
+      } else {
+        // setSugesstion(song)
+        console.log("songs is set as suggesstion");
         currentIndex = playlistSongTrack.findIndex((item) => item.id === currentSong.id) + 1
-        setCurrentsong(playlistSongTrack[currentIndex])
-
-
-
+        setCurrentsong(await playlistSongTrack[currentIndex])
 
         currentaudio.src = await playlistSongTrack[currentIndex].downloadUrl[4].url
+        //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
+
+        currentaudio.load()
         // currentaudio.play()
       }
-      currentaudio.load()
-      await currentaudio.play()
-      let download = await fetch(playlistSongTrack[currentIndex].downloadUrl[4].url)
-
-      setDownload(await download.blob())
-      // let download = await fetch(playlistSongTrack[currentIndex].downloadUrl[4].url)
-      // setDownload(await download.blob())
-      // console.log(download.blob());
-
+      currentaudio.play()
     }
     else {
+      console.log(playlistSong.length);
       if (document.getElementById('shuffleOn').style.display === 'block') {
         currentIndex = Math.floor(Math.random() * sugesstion.length)
         setCurrentsong(sugesstion[currentIndex])
         currentaudio.src = sugesstion[currentIndex].downloadUrl[4].url
-        //  currentaudio.play()
+        currentaudio.load()
+        // currentaudio.play()
       }
       else {
         currentIndex = sugesstion.findIndex((item) => item.id === currentSong.id) + 1
-        setCurrentsong(sugesstion[currentIndex])
-
-
-
+        setCurrentsong(await sugesstion[currentIndex])
 
         currentaudio.src = await sugesstion[currentIndex].downloadUrl[4].url
-        // currentaudio.play()
-      }
-      currentaudio.load()
-      await currentaudio.play()
-      let download = await fetch(sugesstion[currentIndex].downloadUrl[4].url)
-      setDownload(await download.blob())
+        //  document.getElementById('duration-time').innerHTML = `${convertToMMSS(Math.floor(sugesstion[currentIndex].duration))}`
 
+        currentaudio.load()
+        //  currentaudio.play()
+      }
+      currentaudio.play()
+             let download = await fetch(currentaudio.src)
+           setDownload(await download.blob())
     }
+
+
+
+
+
+
+
+//     if (playlistSong.length !== 0) {
+//       setSugesstion(song)
+//       if (document.getElementById('shuffleOn').style.display === 'block' ) {
+//         currentIndex = Math.floor(Math.random() * playlistSongTrack.length)
+//         setCurrentsong(playlistSongTrack[currentIndex])
+//         currentaudio.src = playlistSongTrack[currentIndex].downloadUrl[4].url
+//         //  currentaudio.play()
+//       }
+//       else {
+//         currentIndex = playlistSongTrack.findIndex((item) => item.id === currentSong.id) + 1
+//         setCurrentsong(playlistSongTrack[currentIndex])
+
+
+
+
+//         currentaudio.src = await playlistSongTrack[currentIndex].downloadUrl[4].url
+//         // currentaudio.play()
+//       }
+//       currentaudio.load()
+//       await currentaudio.play()
+//       let download = await fetch(playlistSongTrack[currentIndex].downloadUrl[4].url)
+
+//       setDownload(await download.blob())
+//       // let download = await fetch(playlistSongTrack[currentIndex].downloadUrl[4].url)
+//       // setDownload(await download.blob())
+//       // console.log(download.blob());
+
+//     }
+//     else {
+//       if (document.getElementById('shuffleOn').style.display === 'block') {
+//         currentIndex = Math.floor(Math.random() * sugesstion.length)
+//         setCurrentsong(sugesstion[currentIndex])
+//         currentaudio.src = sugesstion[currentIndex].downloadUrl[4].url
+//         //  currentaudio.play()
+//       }
+//       else {
+//         currentIndex = sugesstion.findIndex((item) => item.id === currentSong.id) + 1
+//         setCurrentsong(sugesstion[currentIndex])
+// console.log(sugesstion);
+
+// console.log(sugesstion.findIndex((item) => item.id === currentSong.id) + 1);
+// console.log(sugesstion[currentIndex]);
+// console.log( await sugesstion[currentIndex].downloadUrl[4].url);
+
+
+
+
+//         currentaudio.src = await sugesstion[currentIndex].downloadUrl[4].url
+//         // currentaudio.play()
+//       }
+//      if (playlistSong.length !== 0) {
+ 
+//     }
   })
 
   function playpause() {
@@ -634,7 +690,7 @@ function Home() {
     setDownload(await download.blob())
     setInterval(async () => {
 
-
+    
       // console.log(Math.floor(await response.data.data[0]));
       // console.log(playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id);
       // console.log( document.querySelectorAll(`#${playlistSongTrack.filter(playlistSongTrack => playlistSongTrack.id==id)[0].id}`)[1].style.backgroundColor="red");
