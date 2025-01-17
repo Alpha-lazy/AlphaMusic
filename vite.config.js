@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-loading-skeleton']  // Marking it as external
+      external: ['/react-loading-skeleton']  // Marking it as external
     }
   }
 })
