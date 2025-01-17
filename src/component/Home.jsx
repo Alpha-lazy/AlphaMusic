@@ -3,8 +3,8 @@ import '../index.css'
 import axios from 'axios'
 import { map } from 'zod';
 import { set } from 'mongoose';
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 let prevsong;
 let currentIndex = 0;
