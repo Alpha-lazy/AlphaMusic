@@ -115,6 +115,9 @@ display: none;
 #playlist::-webkit-scrollbar{
   background-color: transparent;
 }
+.albums::-webkit-scrollbar{
+   background-color: transparent;
+}
 #navContainer{
   display: flex ;
       flex-wrap: wrap;
@@ -150,8 +153,8 @@ display: none;
 
 .button{
   /* position: relative; */
-   max-width: 50px;
-  min-width: 50px;
+   max-width: 38px;
+  min-width: 38px;
 
  
  
